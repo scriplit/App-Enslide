@@ -1,0 +1,41 @@
+#!perl
+use 5.008001;
+use strict;
+use warnings;
+use App::Enslide;
+use Pod::Usage qw(pod2usage);
+
+my $app = App::Enslide->new();
+die if !defined $app;
+
+$app->parse(@ARGV);
+if ($app->want_help) {
+	pod2usage(-verbose => 2, -noperldoc => 1);
+}
+else {
+	$app->run();
+}
+
+__END__
+
+=pod
+ 
+=head1 NAME
+ 
+enslide - converts markdown text to HTML slides
+ 
+=head1 SYNOPSIS
+ 
+C<enslide [options] [markdown_file]>
+
+If no markdown file is provided, looks for a file called 'presentation.md'.
+
+=head1 OPTIONS
+
+ -h   Prints this help message (syn: --help)
+ -t   Defines a title for the presentation.html document (syn: --title)
+ -j   Specifies HighlightJS style (default: magula, syn: --highlightJS)
+ -c   Specifies additional CSS (syn: --css)
+ -o   Specifies output file (default: Presentation.html, syn: --out)
+ 
+=cut
